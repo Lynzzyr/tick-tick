@@ -109,11 +109,11 @@ public class Constants {
 
         public static final double DUR_SPLASH_FADE = 0.5;
         public static final double DUR_SPLASH_STALL = 0.5;
-        public static final double DUR_SPLASH_STAY = 2;
+        public static final double DUR_SPLASH_PAUSE = 2;
 
         public static final double DUR_HOME_ELEVATOR_MOVE = 0.6;
 
-        public static final double DUR_LEVELS_COMPLETE_STALL = 2;
+        public static final double DUR_LEVELS_COMPLETE_PAUSE = 2;
     }
 
     /** Values for Liquid Glass. */

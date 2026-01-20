@@ -5,6 +5,7 @@ import game.Constants.kUI;
 import game.handlers.AudioHandler;
 import game.handlers.ScreenHandler;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,8 +31,7 @@ public class Splash extends ScreenBase {
         centered.getChildren().add(splash);
 
         // animations
-        FadeTransition stall = new FadeTransition(Duration.seconds(kUI.DUR_SPLASH_STALL));
-        stall.setByValue(0.0);
+        PauseTransition stall = new PauseTransition(Duration.seconds(kUI.DUR_SPLASH_STALL));
         stall.setOnFinished(event -> { // play splash sound only once logo begins appearing
             AudioHandler.playSfxSplash();
         });
@@ -39,8 +39,7 @@ public class Splash extends ScreenBase {
         FadeTransition fadein = new FadeTransition(Duration.seconds(kUI.DUR_SPLASH_FADE));
         fadein.setToValue(1.0);
 
-        FadeTransition stay = new FadeTransition(Duration.seconds(kUI.DUR_SPLASH_STAY));
-        stay.setByValue(1.0); // doesn't change anything
+        PauseTransition stay = new PauseTransition(Duration.seconds(kUI.DUR_SPLASH_PAUSE));
 
         FadeTransition fadeout = new FadeTransition(Duration.seconds(kUI.DUR_SPLASH_FADE));
         fadeout.setToValue(0.0);

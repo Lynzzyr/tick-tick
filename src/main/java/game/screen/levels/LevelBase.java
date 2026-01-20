@@ -15,6 +15,7 @@ import game.live.Updatable;
 import game.screen.ScreenBase;
 import game.screen.ScreenType;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -83,8 +84,7 @@ public abstract class LevelBase extends ScreenBase implements Updatable {
         fadeOut = new FadeTransition(Duration.seconds(kUI.DUR_SCREEN_FADE), this);
         fadeOut.setToValue(0.0);
 
-        FadeTransition completeStall = new FadeTransition(Duration.seconds(kUI.DUR_LEVELS_COMPLETE_STALL));
-        completeStall.setByValue(0.0);
+        PauseTransition completeStall = new PauseTransition(Duration.seconds(kUI.DUR_LEVELS_COMPLETE_PAUSE));
 
         FadeTransition completeFadeOut = new FadeTransition(Duration.seconds(kUI.DUR_SCREEN_FADE));
         completeFadeOut.setToValue(0.0);
