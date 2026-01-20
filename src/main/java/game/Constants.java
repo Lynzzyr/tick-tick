@@ -99,13 +99,6 @@ public class Constants {
         public static final String COLOR_BUTTON_MAIN_ALT = "#ffa914"; // lighter orange-yellow 50% opacity
         public static final String COLOR_BUTTON_SECONDARY = "#3cd3fe"; // cyan 50% opacity
 
-        public static final String COLOR_TAB_KNOB = "#676975"; // light slightly blueish gray
-        public static final String COLOR_TAB_CONTAINER = "#313037"; // darkish faint blue
-
-        public static final String COLOR_SWITCH_KNOB = "#ffffff"; // white
-        public static final String COLOR_SWITCH_CONTAINER = "#3f403f"; // half gray
-        public static final String COLOR_SWITCH_CONTAINER_YES = "#2ed057"; // green
-
         // animations
         public static final double DUR_SCREEN_FADE = 0.25;
 
@@ -129,6 +122,13 @@ public class Constants {
         // colors
         public static final String COLOR_GLASS = "#ffffff1a"; // white 10% opacity
         public static final String COLOR_HALO = "#ffffff40"; // white 25% opacity
+
+        public static final String COLOR_TAB_KNOB = "#676975"; // light slightly blueish gray
+        public static final String COLOR_TAB_CONTAINER = "#313037"; // darkish faint blue
+
+        public static final String COLOR_SWITCH_KNOB = "#ffffff"; // white
+        public static final String COLOR_SWITCH_CONTAINER = "#3f403f"; // half gray
+        public static final String COLOR_SWITCH_CONTAINER_YES = "#2ed057"; // green
 
         // animations
         public static final double SCALE_BOUNCEOUT_EXPAND = 1.4;

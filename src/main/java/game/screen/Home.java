@@ -109,6 +109,10 @@ public class Home extends ScreenBase {
         settingsSfxText.setFill(Color.web(kUI.COLOR_LIGHT));
         settingsSfxText.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_SETTINGS));
 
+        GlassKnob test = new GlassKnob(200, 34, "#676975");
+        test.setLayoutX(103);
+        test.setLayoutY(233);
+
         // settings buttons
         GlassButton settingsBackButton = new GlassButton( // back
             kUI.WIDTH_BUTTON_ICON, kUI.HEIGHT_BUTTON_ICON,
@@ -172,7 +176,7 @@ public class Home extends ScreenBase {
         // add to all-in-one
         elevator.getChildren().addAll(
             // settings
-            settingsBackButton, settingsAppearanceText, settingsMusicText, settingsSfxText,
+            settingsBackButton, settingsAppearanceText, settingsMusicText, settingsSfxText, test,
             // home
             titleText, homePlayButton, homeSettingsButton, homeCreditsButton,
             // credits
