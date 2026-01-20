@@ -1,10 +1,15 @@
 package game;
 
-/** Static class holder for all game states such as progress and settings. */
+import javafx.application.Application;
+
+/** Static class holder for all settings and progress. */
 public class State {
     // SETTINGS
 
-    private static Appearance appearance = Appearance.LIGHT; // light by default
+    private static Appearance appearance = Appearance.SYSTEM; // system by default
+
+    private static boolean sfxOn;
+    private static boolean musicOn;
 
     // GAME VALUES
 
@@ -15,8 +20,19 @@ public class State {
 
     // SETTINGS GETTERS
 
-    public static Appearance getAppearance() {
-        return appearance;
+    public static Appearance getBinaryAppearance() {
+        String stylesheet = Application.getUserAgentStylesheet();
+
+        return stylesheet != null && stylesheet.toLowerCase().contains("dark")
+            ? Appearance.DARK
+            : Appearance.LIGHT;
+    }
+
+    public static boolean isSfxOn() {
+        return sfxOn;
+    }
+    public static boolean isMusicOn() {
+        return musicOn;
     }
 
     // GAME VALUE GETTERS
@@ -36,6 +52,13 @@ public class State {
 
     public static void setAppearance(Appearance appearance) {
         State.appearance = appearance;
+    }
+
+    public static void setSfxOn(boolean sfxOn) {
+        State.sfxOn = sfxOn;
+    }
+    public static void setMusicOn(boolean musicOn) {
+        State.musicOn = musicOn;
     }
 
     // GAME VALUE SETTERS

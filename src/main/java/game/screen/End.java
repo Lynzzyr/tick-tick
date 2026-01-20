@@ -16,8 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.InputStream;
-
 /** The end screen. */
 public class End extends ScreenBase {
     // animations
@@ -28,7 +26,7 @@ public class End extends ScreenBase {
 
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getAppearance() == Appearance.LIGHT // check appearance
+            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_game_light.png"
                 : "/sprites/bg_game_dark.png"
             ).toString(),
@@ -41,7 +39,7 @@ public class End extends ScreenBase {
         heroText.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_END_HERO));
 
         Text bodyText = new Text(kUI.POS_END_TEXT_BODY[0], kUI.POS_END_TEXT_BODY[1], "you completed all\nthe levels");
-        bodyText.setFill(Color.web(State.getAppearance() == Appearance.LIGHT ? kUI.COLOR_DARK
+        bodyText.setFill(Color.web(State.getBinaryAppearance() == Appearance.LIGHT ? kUI.COLOR_DARK
                                                                              : kUI.COLOR_LIGHT
         ));
         bodyText.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_END_BODY));

@@ -53,7 +53,12 @@ public abstract class Glass extends Group {
             outline.setArcHeight(height);
             outline.setStrokeType(StrokeType.INSIDE);
             outline.setStrokeWidth(kLiquidGlass.WIDTH_OUTLINE);
-            outline.setStroke(Color.web(color).deriveColor(0, 1, 1, 1)); // make opaque regardless
+            outline.setStroke(Color.web(color).deriveColor(
+                0,
+                1,
+                kLiquidGlass.FACTOR_OUTLINE_BRIGHTNESS,
+                1
+            )); // make opaque regardless
         }
 
         // make fill

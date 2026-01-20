@@ -15,7 +15,7 @@ public class Constants {
 
     /** General values for UI sizes and positioning. */
     public static final class kUI {
-        // button sizes
+        // Liquid Glass element sizes
         public static final double WIDTH_BUTTON_LONG = 300;
         public static final double HEIGHT_BUTTON_LONG = 50;
 
@@ -24,6 +24,9 @@ public class Constants {
 
         public static final double WIDTH_BUTTON_SELECTION_LEVEL = 75;
         public static final double HEIGHT_BUTTON_SELECTION_LEVEL = 75;
+
+        public static final double WIDTH_TAB_SETTINGS_APPEARANCE = 396;
+        public static final double HEIGHT_TAB_SETTINGS_APPEARANCE = 40;
 
         // other sizes
         public static final double WIDTH_LABEL_HOME_VERSION = 940;
@@ -69,6 +72,8 @@ public class Constants {
         public static final double[] POS_SELECTION_BUTTON_LEVEL10 = {440, 255};
 
         public static final double[] POS_LEVELS_BUTTON_BACK = {30, 30};
+
+        public static final double[] POS_SETTINGS_TAB_APPEARANCE = {100, 230};
 
         public static final double[] POS_CLOCK_HOME = {552, 187};
         public static final double[] POS_CLOCK_LEVEL = {232, 9}; // yes it is off-center womp womp
@@ -116,8 +121,14 @@ public class Constants {
         // sizing
         public static final double WIDTH_OUTLINE = 1.0;
 
+        public static final double MARGIN_KNOB = 3; // px round border to container
+
+        public static final double FACTOR_OUTLINE_BRIGHTNESS = 2;
+
         public static final double FACTOR_RADIUS_HALO = 0.5; // multiply by width
         public static final double FACTOR_DRAG_HALO = 0.05; // multiply by center coordinates
+
+        public static final double FACTOR_TEXTSIZE_TAB = 0.375; // multiply by height
 
         // colors
         public static final String COLOR_GLASS = "#ffffff1a"; // white 10% opacity
@@ -142,7 +153,7 @@ public class Constants {
         public static final double DUR_CANCEL_COUNTERACT = 0.217;
         public static final double DUR_CANCEL_NORMALIZE = 0.217;
 
-        public static final double DUR_SOLID_FADE = 0.25; // 15 frames in 60 fps
+        public static final double DUR_SOLID_FADE = 0.2;
 
         public static final double DUR_HALO_FADEIN = 0.1; // 6 frames in 60 fps
         public static final double DUR_HALO_FADEOUT = 0.416; // 25 frames in 60 fps

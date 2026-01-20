@@ -16,7 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.InputStream;
 import java.time.LocalTime;
 
 /** The level selection screen. */
@@ -31,7 +30,7 @@ public class Selection extends ScreenBase {
     public Selection() {
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getAppearance() == Appearance.LIGHT // check appearance
+            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_home_light.png"
                 : "/sprites/bg_home_dark.png"
             ).toString(),

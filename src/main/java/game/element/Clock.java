@@ -42,7 +42,7 @@ public class Clock extends Group implements Updatable {
         running = isRunning;
 
         // create the clock
-        Color colMain = State.getAppearance() == Appearance.LIGHT
+        Color colMain = State.getBinaryAppearance() == Appearance.LIGHT
             ? Color.web(kUI.COLOR_DARK)
             : Color.web(kUI.COLOR_LIGHT);
 

@@ -8,7 +8,7 @@ import game.element.Clock;
 import game.handlers.ScreenHandler;
 import game.handlers.TypeHandler;
 import game.liquidglassui.GlassButton;
-import game.liquidglassui.GlassKnob;
+import game.liquidglassui.GlassTab;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -22,13 +22,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.InputStream;
 import java.time.LocalTime;
+import java.util.List;
 
 /** The all-in-one home screen that includes main menu, settings, and credits. */
 public class Home extends ScreenBase {
     // elements
     private final Pane elevator;
+    private final GlassTab settingsAppearanceTab;
 
     private final Clock clock;
 
@@ -43,7 +44,7 @@ public class Home extends ScreenBase {
     public Home() {
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getAppearance() == Appearance.LIGHT // check appearance
+            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_home_light.png"
                 : "/sprites/bg_home_dark.png"
             ).toString(),
@@ -109,11 +110,7 @@ public class Home extends ScreenBase {
         settingsSfxText.setFill(Color.web(kUI.COLOR_LIGHT));
         settingsSfxText.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_SETTINGS));
 
-        GlassKnob test = new GlassKnob(200, 34, "#676975");
-        test.setLayoutX(103);
-        test.setLayoutY(233);
-
-        // settings buttons
+        // settings Liquid Glass elements
         GlassButton settingsBackButton = new GlassButton( // back
             kUI.WIDTH_BUTTON_ICON, kUI.HEIGHT_BUTTON_ICON,
             "\uDBC0\uDD88", TypeHandler.getFFIcons(), kUI.TEXTSIZE_BUTTON_ICONS, // chevron.down
@@ -125,6 +122,18 @@ public class Home extends ScreenBase {
         );
         settingsBackButton.setLayoutX(kUI.POS_SETTINGS_BUTTON_BACK[0]);
         settingsBackButton.setLayoutY(kUI.POS_SETTINGS_BUTTON_BACK[1] - kApp.SCENE_HEIGHT);
+
+        settingsAppearanceTab = new GlassTab(
+            kUI.WIDTH_TAB_SETTINGS_APPEARANCE, kUI.HEIGHT_TAB_SETTINGS_APPEARANCE,
+            List.of("system", "light", "dark"),
+            List.of(
+                () -> State.setAppearance(Appearance.SYSTEM),
+                () -> State.setAppearance(Appearance.LIGHT),
+                () -> State.setAppearance(Appearance.DARK)
+            )
+        );
+        settingsAppearanceTab.setLayoutX(kUI.POS_SETTINGS_TAB_APPEARANCE[0]);
+        settingsAppearanceTab.setLayoutY(kUI.POS_SETTINGS_TAB_APPEARANCE[1] - kApp.SCENE_HEIGHT);
 
         // home buttons
         GlassButton homePlayButton = new GlassButton( // play
@@ -176,7 +185,8 @@ public class Home extends ScreenBase {
         // add to all-in-one
         elevator.getChildren().addAll(
             // settings
-            settingsBackButton, settingsAppearanceText, settingsMusicText, settingsSfxText, test,
+            settingsBackButton, settingsAppearanceText, settingsMusicText, settingsSfxText,
+            settingsAppearanceTab,
             // home
             titleText, homePlayButton, homeSettingsButton, homeCreditsButton,
             // credits
@@ -214,6 +224,7 @@ public class Home extends ScreenBase {
 
     @Override
     public void exit() {
+        settingsAppearanceTab.stopUpdater();
         clock.stopUpdater();
     }
 }

@@ -17,13 +17,13 @@ public class Crown extends ImageView {
 
         // events
         setOnMousePressed(event -> { // log mouse pos
-            yLast = event.getY();
+            yLast = event.getSceneY();
         });
 
         setOnMouseDragged(event -> { // move
-            if (yLast == -1) yLast = event.getY();
-            dy = event.getY() - yLast;
-            yLast = event.getY();
+            if (yLast == -1) yLast = event.getSceneY();
+            dy = event.getSceneY() - yLast;
+            yLast = event.getSceneY();
         });
 
         setOnMouseReleased(event -> { // stop inertia

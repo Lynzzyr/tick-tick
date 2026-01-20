@@ -1,0 +1,94 @@
+package game.liquidglassui;
+
+import game.Constants.kLiquidGlass;
+import game.Constants.kUI;
+import game.handlers.TypeHandler;
+import game.live.StopwatchUpdater;
+import game.live.Updatable;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** A bar with a knob that sets a value. */
+public class GlassTab extends Group implements Updatable {
+    // values
+    private final int length; // number of options
+    private final double labelWidth;
+    private final ArrayList<Double> xPoses = new ArrayList<>();
+
+    // elements
+    private final GlassKnob knob;
+
+    private final StopwatchUpdater updater;
+
+    /**
+     * Create a Liquid Glass tab.
+     * @param width Width of tab
+     * @param height Height of tab
+     * @param options List of option labels
+     * @param callbacks List of callbacks to trigger, must be the same length and order as options
+     */
+    public GlassTab(double width, double height, List<String> options, List<Runnable> callbacks) {
+        // values
+        length = options.size();
+        labelWidth = (width - 2 * kLiquidGlass.MARGIN_KNOB) / length;
+
+        // base
+        Rectangle container = new Rectangle(width, height, Color.web(kLiquidGlass.COLOR_TAB_CONTAINER));
+        container.setArcWidth(height);
+        container.setArcHeight(height);
+
+        // knob
+        knob = new GlassKnob(
+            (width - 2 * kLiquidGlass.MARGIN_KNOB) / length,
+            height - 2 * kLiquidGlass.MARGIN_KNOB,
+            kLiquidGlass.COLOR_TAB_KNOB
+        );
+        knob.setLayoutX(kLiquidGlass.MARGIN_KNOB);
+        knob.setLayoutY(kLiquidGlass.MARGIN_KNOB);
+
+        // options
+        ArrayList<Label> labels = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            Label l = new Label(options.get(i));
+            l.setPrefSize(labelWidth, height);
+            l.setLayoutX(labelWidth * i + kLiquidGlass.MARGIN_KNOB);
+            l.setFont(Font.loadFont(TypeHandler.getFFBold(), kLiquidGlass.FACTOR_TEXTSIZE_TAB * height));
+            l.setTextFill(Color.web(kUI.COLOR_LIGHT));
+            l.setAlignment(Pos.CENTER);
+            l.setMouseTransparent(true);
+
+            labels.add(l);
+            xPoses.add(labelWidth * i + kLiquidGlass.MARGIN_KNOB);
+        }
+
+        // add
+        getChildren().addAll(container, knob);
+        getChildren().addAll(labels);
+
+        // updater
+        updater = new StopwatchUpdater(this::update);
+        updater.start();
+    }
+
+    @Override
+    public void update(double delta) {
+        // drag knob
+        double newTx = knob.getTranslateX() + knob.getDx(); // current translate x plus delta-x
+
+        if (newTx < 0) knob.setTranslateX(0);
+        else if (newTx > labelWidth * (length - 1)) knob.setTranslateX(labelWidth * (length - 1));
+        else knob.setTranslateX(newTx);
+    }
+
+    @Override
+    public void stopUpdater() {
+        updater.stop();
+    }
+}
