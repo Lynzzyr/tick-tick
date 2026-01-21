@@ -20,6 +20,10 @@ public class State {
 
     // SETTINGS GETTERS
 
+    public static Appearance getRawAppearance() {
+        return State.appearance;
+    }
+
     public static Appearance getBinaryAppearance() {
         String stylesheet = Application.getUserAgentStylesheet();
 

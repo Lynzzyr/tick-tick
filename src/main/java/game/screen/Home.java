@@ -126,6 +126,7 @@ public class Home extends ScreenBase {
         settingsAppearanceTab = new GlassTab(
             kUI.WIDTH_TAB_SETTINGS_APPEARANCE, kUI.HEIGHT_TAB_SETTINGS_APPEARANCE,
             List.of("system", "light", "dark"),
+            () -> State.getRawAppearance().ordinal(),
             List.of(
                 () -> State.setAppearance(Appearance.SYSTEM),
                 () -> State.setAppearance(Appearance.LIGHT),

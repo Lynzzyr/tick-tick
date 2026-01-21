@@ -17,6 +17,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntSupplier;
 
 /** A bar with a knob that sets a value. */
 public class GlassTab extends Group implements Updatable {
@@ -35,9 +36,13 @@ public class GlassTab extends Group implements Updatable {
      * @param width Width of tab
      * @param height Height of tab
      * @param options List of option labels
+     * @param positionSupplier Supplier that supplies position index upon creation
      * @param callbacks List of callbacks to trigger, must be the same length and order as options
      */
-    public GlassTab(double width, double height, List<String> options, List<Runnable> callbacks) {
+    public GlassTab(
+        double width, double height,
+        List<String> options, IntSupplier positionSupplier, List<Runnable> callbacks
+    ) {
         // values
         length = options.size();
         labelWidth = (width - 2 * kLiquidGlass.MARGIN_KNOB) / length;
@@ -50,7 +55,6 @@ public class GlassTab extends Group implements Updatable {
         // snap
         TranslateTransition snap = new TranslateTransition(Duration.seconds(kLiquidGlass.DUR_KNOB_SNAP));
         snap.setInterpolator(Interpolator.EASE_OUT);
-        snap.setToX(0.0); // initially
 
         // knob
         knob = new GlassKnob(
@@ -85,6 +89,8 @@ public class GlassTab extends Group implements Updatable {
             labels.add(l);
             snapPoints.add(labelWidth * i);
         }
+
+        knob.setTranslateX(snapPoints.get(positionSupplier.getAsInt())); // init translation
 
         // add
         getChildren().addAll(container, knob);
