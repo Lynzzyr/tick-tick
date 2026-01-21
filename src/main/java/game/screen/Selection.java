@@ -30,7 +30,7 @@ public class Selection extends ScreenBase {
     public Selection() {
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
+            getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_home_light.png"
                 : "/sprites/bg_home_dark.png"
             ).toString(),
@@ -222,7 +222,7 @@ public class Selection extends ScreenBase {
         selectText.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_LEVEL));
 
         // clock
-        clock = new Clock(kUI.RADIUS_HOME_CLOCK, LocalTime.now(), true);
+        clock = new Clock(kUI.RADIUS_HOME_CLOCK, State.getEffectiveAppearance(), LocalTime.now(), true);
         clock.setLayoutX(kUI.POS_CLOCK_HOME[0]);
         clock.setLayoutY(kUI.POS_CLOCK_HOME[1]);
 

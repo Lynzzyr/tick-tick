@@ -1,12 +1,15 @@
 package game;
 
-import javafx.application.Application;
+import com.jthemedetecor.OsThemeDetector;
 
 /** Static class holder for all settings and progress. */
 public class State {
     // SETTINGS
 
     private static Appearance appearance = Appearance.SYSTEM; // system by default
+    private static final Appearance systemAppearance = OsThemeDetector.getDetector().isDark()
+        ? Appearance.DARK
+        : Appearance.LIGHT;
 
     private static boolean sfxOn;
     private static boolean musicOn;
@@ -24,12 +27,9 @@ public class State {
         return State.appearance;
     }
 
-    public static Appearance getBinaryAppearance() {
-        String stylesheet = Application.getUserAgentStylesheet();
-
-        return stylesheet != null && stylesheet.toLowerCase().contains("dark")
-            ? Appearance.DARK
-            : Appearance.LIGHT;
+    public static Appearance getEffectiveAppearance() {
+        if (State.appearance == Appearance.SYSTEM) return State.systemAppearance;
+        else return State.appearance;
     }
 
     public static boolean isSfxOn() {

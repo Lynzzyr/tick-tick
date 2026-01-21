@@ -23,7 +23,16 @@ public class Clock extends Group implements Updatable {
 
     private boolean running; // whether actively ticking
 
+    private Appearance appearance;
+    private Color colMain;
+
     // objects
+    private final ArrayList<Rectangle> bigticks = new ArrayList<>();
+    private final ArrayList<Rectangle> smallticks = new ArrayList<>();
+
+    private final Polygon hour;
+    private final Polygon minute;
+
     private final Rotate rotHour;
     private final Rotate rotMinute;
     private final Rotate rotSecond;
@@ -32,22 +41,27 @@ public class Clock extends Group implements Updatable {
 
     /** Construct a new clock.
      * @param radius Clock radius
+     * @param appearance Color mode of clock
      * @param initialTime Initial time of clock
      * @param isRunning Whether the clock actively ticks
      */
-    public Clock(double radius, LocalTime initialTime, boolean isRunning) {
+    public Clock(double radius, Appearance appearance, LocalTime initialTime, boolean isRunning) {
         // values
         time = initialTime;
 
         running = isRunning;
 
-        // create the clock
-        Color colMain = State.getBinaryAppearance() == Appearance.LIGHT
-            ? Color.web(kUI.COLOR_DARK)
-            : Color.web(kUI.COLOR_LIGHT);
+        // set correct main color
+        this.appearance = appearance;
 
-        ArrayList<Rectangle> bigticks = new ArrayList<>();
-        for (int i = 0; i < 12; i++) { // create 12 hourly ticks
+        colMain = null;
+        switch (this.appearance) {
+            case LIGHT -> colMain = Color.web(kUI.COLOR_DARK);
+            case DARK  -> colMain = Color.web(kUI.COLOR_LIGHT);
+        }
+
+        // create 12 hourly ticks
+        for (int i = 0; i < 12; i++) {
             Rectangle tick = new Rectangle(
                 radius * kClock.WIDTH_BIGTICK, radius * kClock.HEIGHT_BIGTICK,
                 colMain
@@ -62,8 +76,8 @@ public class Clock extends Group implements Updatable {
         }
         getChildren().addAll(bigticks);
 
-        ArrayList<Rectangle> smallticks = new ArrayList<>();
-        for (int i = 0; i < 60; i++) { // create 48 minute small ticks
+        // create 48 minute small ticks
+        for (int i = 0; i < 60; i++) {
             // skip if in place of big tick
             if (i % 5 == 0) continue;
 
@@ -80,8 +94,9 @@ public class Clock extends Group implements Updatable {
             smallticks.add(tick);
         }
         getChildren().addAll(smallticks);
-        
-        Polygon hour = new Polygon(
+
+        // hour hand
+        hour = new Polygon(
             0, 0,
             radius * kClock.WIDTH_HOUR_TIP, 0,
             radius * (kClock.WIDTH_HOUR_TIP + (kClock.WIDTH_HOUR_BASE - kClock.WIDTH_HOUR_TIP) / 2), radius * kClock.HEIGHT_HOUR,
@@ -97,7 +112,8 @@ public class Clock extends Group implements Updatable {
         );
         hour.getTransforms().add(rotHour);
 
-        Polygon minute = new Polygon(
+        // minute hand
+        minute = new Polygon(
             0, 0,
             radius * kClock.WIDTH_MINUTE_TIP, 0,
             radius * (kClock.WIDTH_MINUTE_TIP + (kClock.WIDTH_MINUTE_BASE - kClock.WIDTH_MINUTE_TIP) / 2), radius * kClock.HEIGHT_MINUTE,
@@ -112,6 +128,7 @@ public class Clock extends Group implements Updatable {
         );
         minute.getTransforms().add(rotMinute);
 
+        // second hand
         Rectangle secondBar = new Rectangle(
             radius * kClock.WIDTH_SECOND, radius * kClock.HEIGHT_SECOND,
             Color.web(kUI.COLOR_ACCENT)
@@ -163,6 +180,25 @@ public class Clock extends Group implements Updatable {
      */
     public LocalTime getTime() {
         return time;
+    }
+
+    /**
+     * Set new appearance for clock.
+     * @param newAppearance New appearance
+     */
+    public void setAppearance(Appearance newAppearance) {
+        // change main color
+        switch (newAppearance) {
+            case LIGHT -> colMain = Color.web(kUI.COLOR_DARK);
+            case DARK  -> colMain = Color.web(kUI.COLOR_LIGHT);
+        }
+
+        // change fills
+        for (Rectangle tick : bigticks) tick.setFill(colMain);
+        for (Rectangle tick : smallticks) tick.setFill(colMain);
+
+        hour.setFill(colMain);
+        minute.setFill(colMain);
     }
 
     @Override

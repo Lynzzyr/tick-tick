@@ -1,6 +1,5 @@
 package game.screen;
 
-import game.Appearance;
 import game.Constants.kApp;
 import game.Constants.kUI;
 import game.State;
@@ -24,12 +23,23 @@ public class End extends ScreenBase {
     public End() {
         setOpacity(0.0); // fade in raises to 1.0
 
+        // get appearance
+        String bgFile = "";
+        Color bodyTextFill = null;
+        switch (State.getEffectiveAppearance()) {
+            case LIGHT -> {
+                bgFile = "/sprites/bg_game_light.png";
+                bodyTextFill = Color.web(kUI.COLOR_DARK);
+            }
+            case DARK -> {
+                bgFile = "/sprites/bg_game_dark.png";
+                bodyTextFill = Color.web(kUI.COLOR_LIGHT);
+            }
+        }
+
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
-                ? "/sprites/bg_game_light.png"
-                : "/sprites/bg_game_dark.png"
-            ).toString(),
+            getClass().getResource(bgFile).toString(),
             kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
         ));
 
@@ -39,9 +49,7 @@ public class End extends ScreenBase {
         heroText.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_END_HERO));
 
         Text bodyText = new Text(kUI.POS_END_TEXT_BODY[0], kUI.POS_END_TEXT_BODY[1], "you completed all\nthe levels");
-        bodyText.setFill(Color.web(State.getBinaryAppearance() == Appearance.LIGHT ? kUI.COLOR_DARK
-                                                                             : kUI.COLOR_LIGHT
-        ));
+        bodyText.setFill(bodyTextFill);
         bodyText.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_END_BODY));
 
         // fade animations

@@ -43,13 +43,25 @@ public class Home extends ScreenBase {
 
     public Home() {
         // background
-        ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
-                ? "/sprites/bg_home_light.png"
-                : "/sprites/bg_home_dark.png"
-            ).toString(),
+        Image bgImgLight = new Image(
+            getClass().getResource("/sprites/bg_home_light.png").toString(),
             kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
-        ));
+        );
+        Image bgImgDark = new Image(
+            getClass().getResource("/sprites/bg_home_dark.png").toString(),
+            kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
+        );
+
+        ImageView bg = new ImageView();
+        switch (State.getEffectiveAppearance()) {
+            case LIGHT -> bg.setImage(bgImgLight);
+            case DARK  -> bg.setImage(bgImgDark);
+        }
+
+        // clock
+        clock = new Clock(kUI.RADIUS_HOME_CLOCK, State.getEffectiveAppearance(), LocalTime.now(), true);
+        clock.setLayoutX(kUI.POS_CLOCK_HOME[0]);
+        clock.setLayoutY(kUI.POS_CLOCK_HOME[1]);
 
         // initial all-in-one setup
         elevator = new Pane();
@@ -128,9 +140,24 @@ public class Home extends ScreenBase {
             List.of("system", "light", "dark"),
             () -> State.getRawAppearance().ordinal(),
             List.of(
-                () -> State.setAppearance(Appearance.SYSTEM),
-                () -> State.setAppearance(Appearance.LIGHT),
-                () -> State.setAppearance(Appearance.DARK)
+                () -> {
+                    State.setAppearance(Appearance.SYSTEM);
+                    switch (State.getEffectiveAppearance()) {
+                        case LIGHT -> bg.setImage(bgImgLight);
+                        case DARK  -> bg.setImage(bgImgDark);
+                    }
+                    clock.setAppearance(State.getEffectiveAppearance());
+                },
+                () -> {
+                    State.setAppearance(Appearance.LIGHT);
+                    bg.setImage(bgImgLight);
+                    clock.setAppearance(Appearance.LIGHT);
+                },
+                () -> {
+                    State.setAppearance(Appearance.DARK);
+                    bg.setImage(bgImgDark);
+                    clock.setAppearance(Appearance.DARK);
+                }
             )
         );
         settingsAppearanceTab.setLayoutX(kUI.POS_SETTINGS_TAB_APPEARANCE[0]);
@@ -202,13 +229,8 @@ public class Home extends ScreenBase {
         versionLabel.setTextFill(Color.web(kUI.COLOR_LIGHT));
         versionLabel.setAlignment(Pos.CENTER_RIGHT);
 
-        // clock
-        clock = new Clock(kUI.RADIUS_HOME_CLOCK, LocalTime.now(), true);
-        clock.setLayoutX(kUI.POS_CLOCK_HOME[0]);
-        clock.setLayoutY(kUI.POS_CLOCK_HOME[1]);
-
         // add
-        getChildren().addAll(bg, elevator, clock, versionLabel);
+        getChildren().addAll(bg, clock, elevator, versionLabel);
     }
 
     @Override

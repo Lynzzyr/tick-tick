@@ -70,7 +70,7 @@ public abstract class LevelBase extends ScreenBase implements Updatable {
 
         // background
         ImageView bg = new ImageView(new Image(
-            getClass().getResource(State.getBinaryAppearance() == Appearance.LIGHT // check appearance
+            getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_game_light.png"
                 : "/sprites/bg_game_dark.png"
             ).toString(),
@@ -102,7 +102,7 @@ public abstract class LevelBase extends ScreenBase implements Updatable {
         backButton.setLayoutY(kUI.POS_LEVELS_BUTTON_BACK[1]);
 
         // clock
-        clock = new Clock(kUI.RADIUS_LEVELS_CLOCK, initialTime, isClockRunning);
+        clock = new Clock(kUI.RADIUS_LEVELS_CLOCK, State.getEffectiveAppearance(), initialTime, isClockRunning);
         clock.setLayoutX(kUI.POS_CLOCK_LEVEL[0]);
         clock.setLayoutY(kUI.POS_CLOCK_LEVEL[1]);
 
