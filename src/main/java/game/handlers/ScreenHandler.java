@@ -62,7 +62,7 @@ public class ScreenHandler {
         if (nextScreen != null) {
             // attempt call exiter of current screen
             try {
-                if (root.getChildren().get(0) instanceof ScreenBase currentScreen) { // always true; for casting only
+                if (root.getChildren().getFirst() instanceof ScreenBase currentScreen) { // always true; for casting only
                     currentScreen.exit();
                 }
             } catch (Exception ignored) {} // ignoring IndexOutOfBoundsException if children is in initial empty state
@@ -72,7 +72,7 @@ public class ScreenHandler {
             root.getChildren().add(nextScreen);
 
             // call enterer of new screen
-            if (root.getChildren().get(0) instanceof ScreenBase currentScreen) { // always true; for casting only
+            if (root.getChildren().getFirst() instanceof ScreenBase currentScreen) { // always true; for casting only
                 nextScreen.enter();
             }
         }
@@ -93,7 +93,7 @@ public class ScreenHandler {
             exitAnimation.setOnFinished(event -> { // change screens only after end animation finishes
                 // attempt call exiter of current screen
                 try {
-                    if (root.getChildren().get(0) instanceof ScreenBase currentScreen) { // always true; for casting only
+                    if (root.getChildren().getFirst() instanceof ScreenBase currentScreen) { // always true; for casting only
                         currentScreen.exit();
                     }
                 } catch (Exception ignored) {} // ignoring IndexOutOfBoundsException if children is in initial empty state
@@ -103,7 +103,7 @@ public class ScreenHandler {
                 root.getChildren().add(nextScreen);
 
                 // call enterer of new screen
-                if (root.getChildren().get(0) instanceof ScreenBase currentScreen) { // always true; for casting only
+                if (root.getChildren().getFirst() instanceof ScreenBase currentScreen) { // always true; for casting only
                     nextScreen.enter();
                 }
             });
