@@ -157,6 +157,8 @@ public class Constants {
 
         public static final double DUR_HALO_FADEIN = 0.1; // 6 frames in 60 fps
         public static final double DUR_HALO_FADEOUT = 0.416; // 25 frames in 60 fps
+
+        public static final double DUR_KNOB_SNAP = 0.2;
     }
 
     /** Values for clocks. */

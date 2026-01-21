@@ -5,12 +5,15 @@ import game.Constants.kUI;
 import game.handlers.TypeHandler;
 import game.live.StopwatchUpdater;
 import game.live.Updatable;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class GlassTab extends Group implements Updatable {
     // values
     private final int length; // number of options
     private final double labelWidth;
-    private final ArrayList<Double> xPoses = new ArrayList<>();
+    private final ArrayList<Double> snapPoints = new ArrayList<>(); // relative to knob Tx
 
     // elements
     private final GlassKnob knob;
@@ -44,14 +47,29 @@ public class GlassTab extends Group implements Updatable {
         container.setArcWidth(height);
         container.setArcHeight(height);
 
+        // snap
+        TranslateTransition snap = new TranslateTransition(Duration.seconds(kLiquidGlass.DUR_KNOB_SNAP));
+        snap.setInterpolator(Interpolator.EASE_OUT);
+        snap.setToX(0.0); // initially
+
         // knob
         knob = new GlassKnob(
             (width - 2 * kLiquidGlass.MARGIN_KNOB) / length,
             height - 2 * kLiquidGlass.MARGIN_KNOB,
-            kLiquidGlass.COLOR_TAB_KNOB
+            kLiquidGlass.COLOR_TAB_KNOB,
+            () -> {
+                int nearestIndex = getNearestSnapPointIndex();
+
+                snap.setToX(snapPoints.get(nearestIndex));
+                snap.playFromStart();
+
+                callbacks.get(nearestIndex).run();
+            }
         );
         knob.setLayoutX(kLiquidGlass.MARGIN_KNOB);
         knob.setLayoutY(kLiquidGlass.MARGIN_KNOB);
+
+        snap.setNode(knob);
 
         // options
         ArrayList<Label> labels = new ArrayList<>();
@@ -65,7 +83,7 @@ public class GlassTab extends Group implements Updatable {
             l.setMouseTransparent(true);
 
             labels.add(l);
-            xPoses.add(labelWidth * i + kLiquidGlass.MARGIN_KNOB);
+            snapPoints.add(labelWidth * i);
         }
 
         // add
@@ -75,6 +93,22 @@ public class GlassTab extends Group implements Updatable {
         // updater
         updater = new StopwatchUpdater(this::update);
         updater.start();
+    }
+
+    private int getNearestSnapPointIndex() {
+        double lowestDistance = 100_000; // arbitrary just to get started
+        int nearestIndex = 0; // arbitary
+
+        // loop through all points
+        for (int i = 0; i < length; i++) {
+            double distanceTo = Math.abs(knob.getTranslateX() - snapPoints.get(i));
+            if (distanceTo < lowestDistance) {
+                lowestDistance = distanceTo;
+                nearestIndex = i;
+            }
+        }
+
+        return nearestIndex;
     }
 
     @Override

@@ -24,8 +24,9 @@ public class GlassKnob extends Glass {
      * @param width Width of knob
      * @param height Height of knob
      * @param color Base color of knob
+     * @param callback The action of the knob upon release
      */
-    public GlassKnob(double width, double height, String color) {
+    public GlassKnob(double width, double height, String color, Runnable callback) {
         super(width, height, color, true, true, true, false);
 
         // animations
@@ -77,6 +78,9 @@ public class GlassKnob extends Glass {
         });
 
         setOnMouseReleased(event -> { // let go
+            // run callback
+            callback.run();
+
             // animations
             bounceOut.stop();
             cancel.playFromStart();
