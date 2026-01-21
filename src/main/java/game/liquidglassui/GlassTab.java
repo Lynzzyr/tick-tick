@@ -79,12 +79,9 @@ public class GlassTab extends Group implements Updatable {
 
     @Override
     public void update(double delta) {
-        // drag knob
-        double newTx = knob.getTranslateX() + knob.getDx(); // current translate x plus delta-x
-
-        if (newTx < 0) knob.setTranslateX(0);
-        else if (newTx > labelWidth * (length - 1)) knob.setTranslateX(labelWidth * (length - 1));
-        else knob.setTranslateX(newTx);
+        // clamp knob to sides
+        if (knob.getTranslateX() < 0) knob.setTranslateX(0);
+        if (knob.getTranslateX() > labelWidth * (length - 1)) knob.setTranslateX(labelWidth * (length - 1));
     }
 
     @Override

@@ -9,8 +9,8 @@ import javafx.util.Duration;
 /** A horizontally movable and observable Liquid Glass element. */
 public class GlassKnob extends Glass {
     // values
-    private double xLast = -1;
-    private double dx = 0;
+    private double currOx; // current origin of mouse drag
+    private double lastTx; // previous translate x to set relative to
 
     // animations
     private final ScaleTransition bounceOut;
@@ -59,10 +59,9 @@ public class GlassKnob extends Glass {
 
         // configure mouse events
         setOnMousePressed(event -> { // press
-            // delta calculation
-            if (xLast == -1) xLast = event.getSceneX();
-            dx = event.getSceneX() - xLast;
-            xLast = event.getSceneX();
+            // set origin, get last translate x
+            currOx = event.getSceneX();
+            lastTx = getTranslateX();
 
             // animations
             cancel.stop();
@@ -72,10 +71,12 @@ public class GlassKnob extends Glass {
             fadeOut.playFromStart();
         });
 
-        setOnMouseReleased(event -> { // let go
-            // hard reset delta
-            dx = 0;
+        setOnMouseDragged(event -> { // move while press
+            // set translate x relative to last tx
+            setTranslateX(lastTx + (event.getSceneX() - currOx));
+        });
 
+        setOnMouseReleased(event -> { // let go
             // animations
             bounceOut.stop();
             cancel.playFromStart();
@@ -83,13 +84,5 @@ public class GlassKnob extends Glass {
             fadeOut.stop();
             fadeIn.playFromStart();
         });
-    }
-
-    /**
-     * Get the current delta-x.
-     * @return Current dx
-     */
-    public double getDx() {
-        return dx;
     }
 }
