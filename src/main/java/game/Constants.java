@@ -74,6 +74,8 @@ public class Constants {
         public static final double[] POS_LEVELS_BUTTON_BACK = {30, 30};
 
         public static final double[] POS_SETTINGS_TAB_APPEARANCE = {100, 230};
+        public static final double[] POS_SETTINGS_SWITCH_MUSIC = {396, 315};
+        public static final double[] POS_SETTINGS_SWITCH_SFX = {396, 395};
 
         public static final double[] POS_CLOCK_HOME = {552, 187};
         public static final double[] POS_CLOCK_LEVEL = {232, 9}; // yes it is off-center womp womp
@@ -100,9 +102,9 @@ public class Constants {
         public static final String COLOR_DARK = "#120e0e"; // very dark red
         public static final String COLOR_ACCENT = "#eb0000"; // bright red
 
-        public static final String COLOR_BUTTON_MAIN = "#ff8b00"; // orange 50% opacity
-        public static final String COLOR_BUTTON_MAIN_ALT = "#ffa914"; // lighter orange-yellow 50% opacity
-        public static final String COLOR_BUTTON_SECONDARY = "#3cd3fe"; // cyan 50% opacity
+        public static final String COLOR_BUTTON_MAIN = "#ff8d28"; // Apple systemOrangeColor
+        public static final String COLOR_BUTTON_MAIN_ALT = "#ffa914"; // lighter orange-yellow
+        public static final String COLOR_BUTTON_SECONDARY = "#3cd3fe"; // cyan
 
         // animations
         public static final double DUR_SCREEN_FADE = 0.25;
@@ -121,7 +123,13 @@ public class Constants {
         // sizing
         public static final double WIDTH_OUTLINE = 1.0;
 
+        public static final double WIDTH_SWITCH = 100;
+        public static final double HEIGHT_SWITCH = 45;
+        public static final double WIDTH_SWITCH_KNOB = 60;
+
         public static final double MARGIN_KNOB = 3; // px round border to container
+
+        public static final double MARGIN_SWITCH_COLOR_CHANGE = 10; // px near snap point to change container color
 
         public static final double FACTOR_OUTLINE_BRIGHTNESS = 2;
 
@@ -131,15 +139,15 @@ public class Constants {
         public static final double FACTOR_TEXTSIZE_TAB = 0.375; // multiply by height
 
         // colors
-        public static final String COLOR_GLASS = "#ffffff1a"; // white 10% opacity
+        public static final String COLOR_GLASS = "#ffffff20"; // white 12.5% opacity
         public static final String COLOR_HALO = "#ffffff40"; // white 25% opacity
 
         public static final String COLOR_TAB_KNOB = "#676975"; // light slightly blueish gray
         public static final String COLOR_TAB_CONTAINER = "#313037"; // darkish faint blue
 
         public static final String COLOR_SWITCH_KNOB = "#ffffff"; // white
-        public static final String COLOR_SWITCH_CONTAINER = "#3f403f"; // half gray
-        public static final String COLOR_SWITCH_CONTAINER_YES = "#2ed057"; // green
+        public static final String COLOR_SWITCH_CONTAINER = "#59595d"; // half gray
+        public static final String COLOR_SWITCH_CONTAINER_YES = "#34c759"; // Apple systemGreenColor
 
         // animations
         public static final double SCALE_BOUNCEOUT_EXPAND = 1.4;
@@ -159,6 +167,8 @@ public class Constants {
         public static final double DUR_HALO_FADEOUT = 0.416; // 25 frames in 60 fps
 
         public static final double DUR_KNOB_SNAP = 0.2;
+
+        public static final double DUR_SWITCH_COLOR_CHANGE = 0.25; // 15 frames in 60 fps
     }
 
     /** Values for clocks. */

@@ -5,9 +5,11 @@ import game.Appearance;
 import game.Constants.kApp;
 import game.Constants.kUI;
 import game.element.Clock;
+import game.handlers.AudioHandler;
 import game.handlers.ScreenHandler;
 import game.handlers.TypeHandler;
 import game.liquidglassui.GlassButton;
+import game.liquidglassui.GlassSwitch;
 import game.liquidglassui.GlassTab;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -29,7 +31,10 @@ import java.util.List;
 public class Home extends ScreenBase {
     // elements
     private final Pane elevator;
+
     private final GlassTab settingsAppearanceTab;
+    private final GlassSwitch settingsMusicSwitch;
+    private final GlassSwitch settingsSfxSwitch;
 
     private final Clock clock;
 
@@ -163,6 +168,28 @@ public class Home extends ScreenBase {
         settingsAppearanceTab.setLayoutX(kUI.POS_SETTINGS_TAB_APPEARANCE[0]);
         settingsAppearanceTab.setLayoutY(kUI.POS_SETTINGS_TAB_APPEARANCE[1] - kApp.SCENE_HEIGHT);
 
+        settingsMusicSwitch = new GlassSwitch(
+            State::isMusicOn,
+            () -> {
+                State.setMusicOn(false);
+                AudioHandler.stopMusic();
+            },
+            () -> {
+                State.setMusicOn(true);
+                AudioHandler.playMusic();
+            }
+        );
+        settingsMusicSwitch.setLayoutX(kUI.POS_SETTINGS_SWITCH_MUSIC[0]);
+        settingsMusicSwitch.setLayoutY(kUI.POS_SETTINGS_SWITCH_MUSIC[1] - kApp.SCENE_HEIGHT);
+
+        settingsSfxSwitch = new GlassSwitch(
+            State::isSfxOn,
+            () -> State.setSfxOn(false),
+            () -> State.setSfxOn(true)
+        );
+        settingsSfxSwitch.setLayoutX(kUI.POS_SETTINGS_SWITCH_SFX[0]);
+        settingsSfxSwitch.setLayoutY(kUI.POS_SETTINGS_SWITCH_SFX[1] - kApp.SCENE_HEIGHT);
+
         // home buttons
         GlassButton homePlayButton = new GlassButton( // play
             kUI.WIDTH_BUTTON_LONG, kUI.HEIGHT_BUTTON_LONG,
@@ -214,7 +241,7 @@ public class Home extends ScreenBase {
         elevator.getChildren().addAll(
             // settings
             settingsBackButton, settingsAppearanceText, settingsMusicText, settingsSfxText,
-            settingsAppearanceTab,
+            settingsAppearanceTab, settingsMusicSwitch, settingsSfxSwitch,
             // home
             titleText, homePlayButton, homeSettingsButton, homeCreditsButton,
             // credits
@@ -248,6 +275,9 @@ public class Home extends ScreenBase {
     @Override
     public void exit() {
         settingsAppearanceTab.stopUpdater();
+        settingsMusicSwitch.stopUpdater();
+        settingsSfxSwitch.stopUpdater();
+
         clock.stopUpdater();
     }
 }

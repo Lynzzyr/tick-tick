@@ -1,5 +1,6 @@
 package game.handlers;
 
+import game.State;
 import javafx.scene.media.AudioClip;
 
 import java.util.ArrayList;
@@ -64,24 +65,24 @@ public class AudioHandler {
 
     /** Plays the splash SFX. */
     public static void playSfxSplash() {
-        sfxSplash.play();
+        if (State.isSfxOn()) sfxSplash.play();
     }
 
     /** Plays the OK SFX. */
     public static void playSfxOk() {
-        sfxOk.play();
+        if (State.isSfxOn()) sfxOk.play();
     }
 
     /** Plays the fail SFX. */
     public static void playSfxFail() {
-        sfxFail.play();
+        if (State.isSfxOn()) sfxFail.play();
     }
 
     // music
 
     /** Plays and loops the music. */
     public static void playMusic() {
-        music.play();
+        if (State.isMusicOn() && !music.isPlaying()) music.play();
     }
 
     /** Stops the music. */

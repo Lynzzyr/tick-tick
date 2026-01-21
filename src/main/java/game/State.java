@@ -11,8 +11,8 @@ public class State {
         ? Appearance.DARK
         : Appearance.LIGHT;
 
-    private static boolean sfxOn;
-    private static boolean musicOn;
+    private static boolean sfxOn = true; // initially on
+    private static boolean musicOn = true;
 
     // GAME VALUES
 

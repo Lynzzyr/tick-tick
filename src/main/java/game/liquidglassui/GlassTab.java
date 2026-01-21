@@ -121,7 +121,7 @@ public class GlassTab extends Group implements Updatable {
     public void update(double delta) {
         // clamp knob to sides
         if (knob.getTranslateX() < 0) knob.setTranslateX(0);
-        if (knob.getTranslateX() > labelWidth * (length - 1)) knob.setTranslateX(labelWidth * (length - 1));
+        if (knob.getTranslateX() > snapPoints.getLast()) knob.setTranslateX(snapPoints.getLast());
     }
 
     @Override
