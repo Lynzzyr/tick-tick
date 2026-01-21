@@ -10,7 +10,7 @@ public class Constants {
 
         public static final String NAME = "Tick, Tick";
 
-        public static final String VERSION_STRING = "v1.0-ALPHA";
+        public static final String VERSION_STRING = "v1.0-BETA";
     }
 
     /** General values for UI sizes and positioning. */
