@@ -33,8 +33,7 @@ public class Selection extends ScreenBase {
             getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_home_light.png"
                 : "/sprites/bg_home_dark.png"
-            ).toString(),
-            kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
+            ).toString()
         ));
 
         // fade animations

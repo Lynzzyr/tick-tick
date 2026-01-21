@@ -48,14 +48,8 @@ public class Home extends ScreenBase {
 
     public Home() {
         // background
-        Image bgImgLight = new Image(
-            getClass().getResource("/sprites/bg_home_light.png").toString(),
-            kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
-        );
-        Image bgImgDark = new Image(
-            getClass().getResource("/sprites/bg_home_dark.png").toString(),
-            kApp.SCENE_WIDTH, kApp.SCENE_HEIGHT, true, false // scale to window
-        );
+        Image bgImgLight = new Image(getClass().getResource("/sprites/bg_home_light.png").toString());
+        Image bgImgDark = new Image(getClass().getResource("/sprites/bg_home_dark.png").toString());
 
         ImageView bg = new ImageView();
         switch (State.getEffectiveAppearance()) {

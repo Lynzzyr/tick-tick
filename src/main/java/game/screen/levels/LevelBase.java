@@ -1,7 +1,6 @@
 package game.screen.levels;
 
 import game.Appearance;
-import game.Constants;
 import game.Constants.kUI;
 import game.Constants.kGameplay;
 import game.State;
@@ -73,8 +72,7 @@ public abstract class LevelBase extends ScreenBase implements Updatable {
             getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
                 ? "/sprites/bg_game_light.png"
                 : "/sprites/bg_game_dark.png"
-            ).toString(),
-            Constants.kApp.SCENE_WIDTH, Constants.kApp.SCENE_HEIGHT, true, false // scale to window
+            ).toString()
         ));
 
         // animations
