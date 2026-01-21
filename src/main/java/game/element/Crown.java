@@ -12,7 +12,7 @@ public class Crown extends ImageView {
     public Crown() {
         // image
         setImage(new Image(
-            getClass().getResource("/sprites/crown.png").toString()
+            getClass().getResource("/sprites/misc/crown.png").toString()
         ));
 
         // configure mouse events

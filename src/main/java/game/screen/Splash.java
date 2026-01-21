@@ -24,7 +24,7 @@ public class Splash extends ScreenBase {
 
         // splash image
         ImageView splash = new ImageView(new Image(
-            getClass().getResource("/sprites/splash.png").toString()
+            getClass().getResource("/sprites/misc/splash.png").toString()
         ));
         splash.setOpacity(0.0); // starts transparent
 

@@ -70,8 +70,8 @@ public abstract class LevelBase extends ScreenBase implements Updatable {
         // background
         ImageView bg = new ImageView(new Image(
             getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
-                ? "/sprites/bg_game_light.png"
-                : "/sprites/bg_game_dark.png"
+                ? "/sprites/bg/bg_game_light.png"
+                : "/sprites/bg/bg_game_dark.png"
             ).toString()
         ));
 

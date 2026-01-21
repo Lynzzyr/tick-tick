@@ -31,8 +31,8 @@ public class Selection extends ScreenBase {
         // background
         ImageView bg = new ImageView(new Image(
             getClass().getResource(State.getEffectiveAppearance() == Appearance.LIGHT // check appearance
-                ? "/sprites/bg_home_light.png"
-                : "/sprites/bg_home_dark.png"
+                ? "/sprites/bg/bg_home_light.png"
+                : "/sprites/bg/bg_home_dark.png"
             ).toString()
         ));
 
