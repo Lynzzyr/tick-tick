@@ -40,6 +40,9 @@ public class Constants {
 
         public static final double TEXTSIZE_SETTINGS = 60;
 
+        public static final double TEXTSIZE_CREDITS_HERO = 48;
+        public static final double TEXTSIZE_CREDITS_BODY = 28;
+
         public static final int TEXTSIZE_LEVEL = 48;
         public static final int TEXTSIZE_LEVEL_BODY = 36;
 
@@ -86,6 +89,16 @@ public class Constants {
         public static final double[] POS_TEXT_SETTINGS_MUSIC = {100, 360};
         public static final double[] POS_TEXT_SETTINGS_SFX = {100, 440};
 
+        public static final double[] POS_TEXT_CREDITS_HERO_1 = {100, 200};
+        public static final double[] POS_TEXT_CREDITS_BODY_1 = {100, 240};
+        public static final double[] POS_TEXT_CREDITS_HERO_2 = {100, 310};
+        public static final double[] POS_TEXT_CREDITS_BODY_2 = {100, 350};
+
+        public static final double[] POS_TEXT_CREDITS_BODY_3 = {100, 410};
+        public static final double[] POS_CREDITS_SBB = {100, 460};
+        public static final double[] POS_TEXT_CREDITS_BODY_4 = {470, 410};
+        public static final double[] POS_CREDITS_LGBADGE = {310, 380};
+
         public static final double[] POS_TEXT_SELECTION = {180, 110};
 
         public static final double[] POS_TEXT_LEVEL_NUM = {880, 60};
@@ -114,6 +127,8 @@ public class Constants {
         public static final double DUR_SPLASH_PAUSE = 2;
 
         public static final double DUR_HOME_ELEVATOR_MOVE = 0.6;
+
+        public static final double DUR_CREDITS_LGBADGE_GLASS_FADE = 0.25;
 
         public static final double DUR_LEVELS_COMPLETE_PAUSE = 2;
     }

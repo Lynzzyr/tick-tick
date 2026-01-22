@@ -218,6 +218,70 @@ public class Home extends ScreenBase {
         homeCreditsButton.setLayoutX(kUI.POS_HOME_BUTTON_CREDITS[0]);
         homeCreditsButton.setLayoutY(kUI.POS_HOME_BUTTON_CREDITS[1]);
 
+        // credits elements
+        Text creditsHero1 = new Text(
+            kUI.POS_TEXT_CREDITS_HERO_1[0], kUI.POS_TEXT_CREDITS_HERO_1[1] + kApp.SCENE_HEIGHT,
+            "lynzzyr"
+        );
+        creditsHero1.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsHero1.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_CREDITS_HERO));
+
+        Text creditsBody1 = new Text(
+            kUI.POS_TEXT_CREDITS_BODY_1[0], kUI.POS_TEXT_CREDITS_BODY_1[1] + kApp.SCENE_HEIGHT,
+            "programming, visuals"
+        );
+        creditsBody1.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsBody1.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_CREDITS_BODY));
+
+        Text creditsHero2 = new Text(
+            kUI.POS_TEXT_CREDITS_HERO_2[0], kUI.POS_TEXT_CREDITS_HERO_2[1] + kApp.SCENE_HEIGHT,
+            "bart bonte"
+        );
+        creditsHero2.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsHero2.setFont(Font.loadFont(TypeHandler.getFFBold(), kUI.TEXTSIZE_CREDITS_HERO));
+
+        Text creditsBody2 = new Text(
+            kUI.POS_TEXT_CREDITS_BODY_2[0], kUI.POS_TEXT_CREDITS_BODY_2[1] + kApp.SCENE_HEIGHT,
+            "game style, music, sound effects"
+        );
+        creditsBody2.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsBody2.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_CREDITS_BODY));
+
+        Text creditsBody3 = new Text(
+            kUI.POS_TEXT_CREDITS_BODY_3[0], kUI.POS_TEXT_CREDITS_BODY_3[1] + kApp.SCENE_HEIGHT,
+            "clock design by\nHans Hilfiker"
+        );
+        creditsBody3.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsBody3.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_CREDITS_BODY));
+
+        ImageView creditsSBB = new ImageView(new Image(getClass().getResource("/sprites/credits/sbb_wordmark.png").toString()));
+        creditsSBB.setX(kUI.POS_CREDITS_SBB[0]);
+        creditsSBB.setY(kUI.POS_CREDITS_SBB[1] + kApp.SCENE_HEIGHT);
+
+        Text creditsBody4 = new Text(
+            kUI.POS_TEXT_CREDITS_BODY_4[0], kUI.POS_TEXT_CREDITS_BODY_4[1] + kApp.SCENE_HEIGHT,
+            "inspired\nUI"
+        );
+        creditsBody4.setFill(Color.web(kUI.COLOR_LIGHT));
+        creditsBody4.setFont(Font.loadFont(TypeHandler.getFFRegular(), kUI.TEXTSIZE_CREDITS_BODY));
+
+        ImageView creditsLGBadgeGlass = new ImageView(new Image(getClass().getResource("/sprites/credits/lgbadge_glass.png").toString()));
+        creditsLGBadgeGlass.setOpacity(0.0);
+        creditsLGBadgeGlass.setX(kUI.POS_CREDITS_LGBADGE[0]);
+        creditsLGBadgeGlass.setY(kUI.POS_CREDITS_LGBADGE[1] + kApp.SCENE_HEIGHT);
+
+        FadeTransition badgeGlassFade = new FadeTransition(Duration.seconds(kUI.DUR_CREDITS_LGBADGE_GLASS_FADE), creditsLGBadgeGlass);
+        badgeGlassFade.setToValue(1.0);
+        toCredits.setOnFinished(event -> badgeGlassFade.playFromStart()); // fade in glass after move complete
+
+        ImageView creditsLGBadgeFill = new ImageView(new Image(getClass().getResource("/sprites/credits/lgbadge_fill.png").toString()));
+        creditsLGBadgeFill.setX(kUI.POS_CREDITS_LGBADGE[0]);
+        creditsLGBadgeFill.setY(kUI.POS_CREDITS_LGBADGE[1] + kApp.SCENE_HEIGHT);
+
+        ImageView creditsLGBadgeText = new ImageView(new Image(getClass().getResource("/sprites/credits/lgbadge_text.png").toString()));
+        creditsLGBadgeText.setX(kUI.POS_CREDITS_LGBADGE[0]);
+        creditsLGBadgeText.setY(kUI.POS_CREDITS_LGBADGE[1] + kApp.SCENE_HEIGHT);
+
         // credits buttons
         GlassButton creditsBackButton = new GlassButton(
             kUI.WIDTH_BUTTON_ICON, kUI.HEIGHT_BUTTON_ICON,
@@ -225,6 +289,8 @@ public class Home extends ScreenBase {
             kUI.COLOR_BUTTON_MAIN, kUI.COLOR_LIGHT,
             () -> {
                 toCredits.stop();
+
+                creditsLGBadgeGlass.setOpacity(0.0);
                 returnHome.playFromStart();
             }
         );
@@ -239,7 +305,10 @@ public class Home extends ScreenBase {
             // home
             titleText, homePlayButton, homeSettingsButton, homeCreditsButton,
             // credits
-            creditsBackButton
+            creditsBackButton,
+            creditsHero1, creditsBody1, creditsHero2, creditsBody2,
+            creditsBody3, creditsSBB, creditsBody4,
+            creditsLGBadgeGlass, creditsLGBadgeFill, creditsLGBadgeText
         );
 
         // version label
